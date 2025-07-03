@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import supabase from "../supabaseClient";
 import { useAuth } from "../context/AuthContext";
@@ -7,6 +7,7 @@ import { checkAndUnlockAchievements } from "../utils/achievementUtils";
 export default function MCQSingleQuestion() {
   const { id } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const [question, setQuestion] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -24,7 +25,6 @@ export default function MCQSingleQuestion() {
         .single();
 
       if (error) {
-        console.error("MCQ fetch error:", error.message);
         setQuestion(null);
       } else {
         setQuestion(data);
@@ -36,46 +36,45 @@ export default function MCQSingleQuestion() {
   }, [id]);
 
   const handleSubmit = async () => {
-  if (!selected) return;
-  const correct = selected === question.correct_answer;
-  setIsCorrect(correct);
-  setSubmitted(true);
+    if (!selected) return;
+    const correct = selected === question.correct_answer;
+    setIsCorrect(correct);
+    setSubmitted(true);
 
-  if (user) {
-    const { data: existing } = await supabase
-      .from("user_progress")
-      .select("*")
-      .eq("user_id", user.id)
-      .eq("question_type", "mcq")
-      .eq("question_id", +id);
+    if (user) {
+      const { data: existing } = await supabase
+        .from("user_progress")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("question_type", "mcq")
+        .eq("question_id", +id);
 
-    if (existing?.length > 0) {
-      await supabase.from("user_progress").update({
-        completed: correct, // Only mark as completed if correct
-        solution: selected,
-        score: correct ? question.points : 0,
-        attempts: (existing[0].attempts || 0) + 1,
-        last_attempted_at: new Date().toISOString()
-      }).eq("id", existing[0].id);
-    } else {
-      await supabase.from("user_progress").insert({
-        user_id: user.id,
-        question_type: "mcq",
-        question_id: +id,
-        completed: correct,
-        solution: selected,
-        score: correct ? question.points : 0,
-        attempts: 1,
-        last_attempted_at: new Date().toISOString()
-      });
+      if (existing?.length > 0) {
+        await supabase.from("user_progress").update({
+          completed: correct,
+          solution: selected,
+          score: correct ? question.points : 0,
+          attempts: (existing[0].attempts || 0) + 1,
+          last_attempted_at: new Date().toISOString()
+        }).eq("id", existing[0].id);
+      } else {
+        await supabase.from("user_progress").insert({
+          user_id: user.id,
+          question_type: "mcq",
+          question_id: +id,
+          completed: correct,
+          solution: selected,
+          score: correct ? question.points : 0,
+          attempts: 1,
+          last_attempted_at: new Date().toISOString()
+        });
+      }
+
+      if (correct) {
+        await checkAndUnlockAchievements(user.id);
+      }
     }
-
-    // ✅ Paste this right here, after progress update:
-    if (correct) {
-      await checkAndUnlockAchievements(user.id);
-    }
-  }
-};
+  };
 
   if (loading) return <div className="text-white text-center mt-10">Loading...</div>;
   if (!question) return <div className="text-white text-center mt-10">Question not found.</div>;
@@ -122,22 +121,37 @@ export default function MCQSingleQuestion() {
         <div className="text-red-400">No options found for this question.</div>
       )}
 
-      {!submitted ? (
+      {/* Button row: Submit (before submit) and Back (always) */}
+      <div className="flex flex-col sm:flex-row gap-4 mt-4">
+        {!submitted && (
+          <button
+            onClick={handleSubmit}
+            disabled={!selected}
+            className="bg-gradient-to-r from-lime-400 to-green-400 text-black font-bold py-2 px-6 rounded-full shadow-lg hover:from-lime-300 hover:to-green-300 transition w-full sm:w-auto"
+          >
+            Submit Answer
+          </button>
+        )}
         <button
-          onClick={handleSubmit}
-          disabled={!selected}
-          className="bg-lime-400 text-black font-bold py-2 px-6 rounded hover:bg-lime-300 transition"
+          onClick={() => navigate("/mcq")}
+          className="bg-gradient-to-r from-purple-400 to-indigo-500 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:from-purple-300 hover:to-indigo-400 transition w-full sm:w-auto flex items-center justify-center gap-2"
         >
-          Submit Answer
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to MCQ List
         </button>
-      ) : (
-        <div className="mt-6">
+      </div>
+
+      {/* Result/Explanation after submission */}
+      {submitted && (
+        <div className="mt-6 flex flex-col items-start gap-4 w-full">
           <p className={`text-xl font-bold ${isCorrect ? "text-green-400" : "text-red-400"}`}>
             {isCorrect ? "🎉 Correct!" : "❌ Incorrect."}
           </p>
           {question.explanation && (
-            <p className="mt-2 text-white/80">
-              💡 <strong>Explanation:</strong> {question.explanation}
+            <p className="text-white/80">
+              <span role="img" aria-label="bulb">💡</span> <strong>Explanation:</strong> {question.explanation}
             </p>
           )}
         </div>
