@@ -1,8 +1,7 @@
 # CodeQuest - A Full-Stack Competitive Programming Platform
 
 <p align="center">
-  ![CodeQuest Demo]
-  (https://github.com/SyedAbdulKareem2003/CodeQuest/raw/main/assets/demo.gif)
+  <img src="https://github.com/SyedAbdulKareem2003/CodeQuest/raw/main/assets/demo.gif" alt="Demo of CodeQuest">
 </p>
 
 <p align="center">
