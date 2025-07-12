@@ -1,7 +1,7 @@
 # CodeQuest - A Full-Stack Competitive Programming Platform
 
 <p align="center">
-  <img src="![Image](https://github.com/user-attachments/assets/75a4452e-3c0f-4d22-b927-86a8f68aa1d8)" alt="CodeQuest Demo">
+  ![Image](https://github.com/user-attachments/assets/75a4452e-3c0f-4d22-b927-86a8f68aa1d8)
 </p>
 
 <p align="center">
@@ -78,7 +78,7 @@ You will need `npm` or `yarn` installed on your machine.
 
 1.  Clone the repo
     ```sh
-    git clone https://github.com/your_username/CodeQuest.git
+    git clone https://github.com/SyedAbdulKareem2003/CodeQuest.git
     ```
 2.  Install NPM packages
     ```sh
