@@ -2,7 +2,7 @@
 
 <p align="center">
   ![CodeQuest Demo]
-  (https://github.com/SyedAbdulKareem2003/CodeQuest/blob/main/assets/demo.gif)
+  (https://github.com/SyedAbdulKareem2003/CodeQuest/raw/main/assets/demo.gif)
 </p>
 
 <p align="center">
