@@ -1,70 +1,96 @@
-# Getting Started with Create React App
+# CodeQuest - A Full-Stack Competitive Programming Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img src="![Image](https://github.com/user-attachments/assets/75a4452e-3c0f-4d22-b927-86a8f68aa1d8)" alt="CodeQuest Demo">
+</p>
 
-## Available Scripts
+<p align="center">
+  A feature-rich platform built with React, Supabase, and the Judge0 API to help developers practice coding problems, test their knowledge with MCQs, and compete on a global leaderboard.
+</p>
 
-In the project directory, you can run:
+<p align="center">
+  <a href="https://codequest-gules.vercel.app/"><strong>View Live Demo »</strong></a>
+</p>
+<br>
 
-### `npm start`
+## About The Project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+CodeQuest is a comprehensive web application designed to be a one-stop-shop for aspiring and established developers to sharpen their problem-solving skills. It goes beyond a simple LeetCode clone by integrating a full suite of features including coding challenges, multiple-choice questions, community discussions, and gamified elements like achievements and a live leaderboard. The entire application is built on a modern tech stack and is designed to be scalable and user-friendly.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project was built using the following technologies:
 
-### `npm run build`
+*   **Frontend:**
+    *   ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+    *   ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+    *   **CodeMirror:** For the interactive, IDE-like code editor.
+    *   **React Router:** For client-side routing and navigation.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+*   **Backend & Database:**
+    *   ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+    *   **PostgreSQL:** The underlying database managed by Supabase.
+    *   **Google OAuth:** For secure and seamless user authentication.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+*   **APIs & Deployment:**
+    *   **Judge0 API:** For real-time, multi-language code compilation and execution.
+    *   ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Features
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+✅ **Secure User Authentication:** Seamless and secure login using Google OAuth, with all critical routes protected to ensure a personalized user experience.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+✅ **Interactive Coding Problems:** Solve challenges in a real-time **CodeMirror** editor that supports multiple languages, provides starter templates, and allows users to save their progress.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+✅ **Real-Time Code Evaluation:** Instant feedback on code submissions powered by the **Judge0 API**. Users see detailed results, including success on test cases or specific error messages. Solved problems are automatically marked as complete.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+✅ **Knowledge-Building MCQs:** Test conceptual understanding with multiple-choice questions that provide immediate correct/incorrect feedback and detailed explanations to aid learning.
 
-## Learn More
+✅ **Community Discussion Boards:** A threaded comment and reply system for each problem, allowing users to ask questions, share different approaches, and learn from the community.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+✅ **Dynamic User Profiles:** Personalized dashboards tracking solved problems (both code & MCQ), total points scored, and an editable username.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+✅ **Gamified Achievements:** An achievement system that unlocks badges for milestones (e.g., "First Code Submitted," "Problem Solver"), motivating users to stay engaged.
 
-### Code Splitting
+✅ **Competitive Leaderboard:** A global ranking system based on total points scored. It features a refresh button to fetch the latest rankings and foster a healthy, competitive environment.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Challenges & Learnings
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+One of the main challenges was managing the free-tier rate limits of the Judge0 API from RapidAPI. To prevent users from spamming the API and to optimize the limited monthly requests, I implemented client-side state management to disable the submit button during an active submission. This, combined with clear loading indicators, provides a smooth user experience while ensuring the application stays within its operational limits. This taught me the importance of planning for real-world constraints when integrating third-party services.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Getting Started
 
-### Advanced Configuration
+To get a local copy up and running, follow these simple steps.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Prerequisites
 
-### Deployment
+You will need `npm` or `yarn` installed on your machine.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Installation
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1.  Clone the repo
+    ```sh
+    git clone https://github.com/your_username/CodeQuest.git
+    ```
+2.  Install NPM packages
+    ```sh
+    npm install
+    ```
+3.  Create a `.env.local` file in the root directory and add your environment variables (Supabase URL, Anon Key, Judge0 API Key).
+    ```
+    REACT_APP_SUPABASE_URL='YOUR_SUPABASE_URL'
+    REACT_APP_SUPABASE_ANON_KEY='YOUR_SUPABASE_ANON_KEY'
+    REACT_APP_RAPIDAPI_KEY='YOUR_RAPIDAPI_KEY'
+    ```
+4.  Run the application
+    ```sh
+    npm start
+    ```
